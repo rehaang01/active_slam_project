@@ -1,0 +1,31 @@
+# ~/.config/tmuxinator/active_slam_surrogate.yml
+#
+# Launches Gazebo + PX4 SITL + ROS bridges WITHOUT RTAB-Map.
+# The SLAM surrogate runs inside the RL environment process.
+#
+# Usage:
+#   tmuxinator active_slam_surrogate
+#
+# After all panes are running, start training in a separate terminal:
+#   cd /root/active_slam_project
+#   python3 train.py
+
+name: active_slam_surrogate
+root: /root
+
+windows:
+  - PX4_Gazebo:
+      root: /root/PX4-Autopilot
+      layout: even-vertical
+      panes:
+        - PX4_GZ_WORLD=warehouse PX4_SYS_AUTOSTART=4002 PX4_GZ_MODEL_POSE="0.0,0.0,1.0,0.00,0,3.14" PX4_GZ_MODEL=x500_depth ./build/px4_sitl_default/bin/px4
+  - ROS_Bridges:
+      root: /root
+      layout: even-vertical
+      panes:
+        - sleep 5 && ros2 launch simulation_launch full_simulation_surrogate.launch.py
+  - Training:
+      root: /root/active_slam_project
+      layout: even-vertical
+      panes:
+        - echo "Waiting for sim to stabilize..." && sleep 15 && echo "Ready. Run: python3 train.py"

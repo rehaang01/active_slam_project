@@ -1,0 +1,42 @@
+# Logs and training artifacts
+logs/
+logs/best_model/
+logs/checkpoints/
+logs/tb/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+
+# Backup files (created by docker_setup.sh)
+*.backup
+*.bak
+
+# ROS2 / Gazebo build artifacts
+build/
+install/
+devel/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Docker
+.dockerignore
+
+# Misc
+*.zip
+*.tar.gz
